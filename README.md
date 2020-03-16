@@ -1,2 +1,2 @@
 # baekjoon
-source cord about baekjoon problems
+source cords about baekjoon problems
