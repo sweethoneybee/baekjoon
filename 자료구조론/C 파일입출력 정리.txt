@@ -1,0 +1,77 @@
+출처 : https://desire-with-passion.tistory.com/169
+FILE *file_pointer // 파일스트림
+
+
+// 1. stream을 통해 파일을 여는 법
+fopen("파일경로", "열기방식")
+fclose(stream 이름)
+
+File *file_pointer;
+file_pointer = fopen("a.txt", "w"); // 경로에 적히는 '\'는 개행문자라 두번 적어줘야함
+fclose(file_pointer);
+
+
+// 2. 파일을 여는 방식
+fopen("파일경로", "열기방식")
+
+모드 || 기능 || 파일없음 || 파일있음 || 기존 파일 보호(파일로출력시)
+r || 읽기(=입력) || 에러 || 기존파일이용 || 에러
+r+ || 읽기/쓰기(=출력) || 에러 || 기존파일이용 || 겹쳐써짐
+w || 쓰기 || 새로생성 || 새로생성 || 지워짐(새로생성)
+w+ || 쓰기/읽기 || 새로생성 || 새로생성 || 지워짐(새로생성)
+a || 쓰기(덧붙이기) || 새로생성 || 기존파일이용 || 뒤쪽에 써짐
+a+ || 쓰기, 읽기 || 새로생성 || 기존파일이용 || 뒤쪽에 써짐
+
+단, 여기서 입력과 출력이 동시에 가능한 모드에서 입력과 출력을 번갈아
+수행하기 위해서는, 위치 지정자를 새로 정해줘야한다.
+(아마 보니깐, 내용을 덮어씌우려면 w+를, 뒤쪽에 추가하려면 a+ 정도를 쓰면 될 듯)
+
+// 3. 파일에서 읽어오기
+fscanf(읽어올 stream name, "읽어올자료유형", 읽어들일위치)
+fgets(읽어들일위치, 읽어올문자열크기, stream name)
+
+char from_a_txt[30];
+char from_a_txt2[30];
+File *file_pointer = fopen("a.txt", "r");
+fscanf(file_pointer, "%s", from_a_txt);
+fgets(from_a_txt2, 30, file_pointer);
+printf("읽어온부분 : %s \n", from_a_txt);
+fclose(file_pointer);
+
+
+// 4. 파일로 출력하기
+fputs("쓸내용", 쓸stream이름)
+fprintf(쓸위치, "쓸내용", 서식문자)
+
+char to_a_txt[30] = "Good bye, World!";
+FILE *file_point;
+file_pointer = fopen("a.txt", "w");
+fputs("Hello, World!", file_pointer);
+fprintf(file_pointer, "Another? %s", to_a_txt);
+fclose(file_pointer);
+
+결과
+Hello, World! Another? Good bye, World!
+
+
+// 5. 위치지정자
+fseek(stream_name, offset, 기준점)
+ -> offset은 거리를 나타내는 정수
+ -> 파일의 시작 : SEEK_SET
+ -> 지금 가리키고 있는 위치 : SEEK_CUR
+ -> 파일의 끝 : SEEK_END
+
+ char from_a_txt[30];
+ char from_a_txt2[30];
+ FILE *file_pointer;
+ file_pointer = fopen("a.txt", "r");
+ fscanf(file_pointer, "%s", from_a_txt);
+ printf("읽어온 부분 : %s \n", from_a_txt);
+ fseek(file_pointer, 0, SEEK_SET);
+ fgets(from_a_txt2, 30, file_pointer);
+ printf("읽어온 부분 : %s \n", from_a_txt2);
+ fclose();
+
+ 여기서 만약 offset을 1 로 바꾼다면 fgets 은 아래의 내용을 출력하게 될 것이다.
+ 
+ ello, World!
