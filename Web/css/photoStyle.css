@@ -1,0 +1,61 @@
+body {
+    background-color: #6bc3b1;
+}
+
+a {
+    text-decoration: none;
+}
+
+.topBackground, .footerBackground {
+    background-color: white;
+    overflow : auto;
+    margin-top : 5px;
+    text-align : center;
+    padding : 20px;
+}
+
+.bodyBackground {
+    background-color: white;
+    overflow: auto;
+    margin-top: 5px;
+    padding: 20px;
+}
+
+.topBackground ul{
+    margin: 0px;
+    float: right;
+}
+.topButton {
+    box-shadow : rgba(0, 0, 0, 0.8) 3px 3px;
+    cursor : pointer;
+    list-style: none;
+    background-color: lightsteelblue;
+    color : purple;
+    ;
+    float : left;
+    text-align : center;
+    width: 100px;
+    height: 25px;
+    margin-left : 10px;
+}
+
+.photoAndText {
+    padding: 30px;
+    position: relative;
+}
+
+.myPhoto {
+    width: 400px;
+    height: 400px;
+    border: 10px gray solid;
+}
+
+.photoText {
+    position: absolute;
+}
+
+.text {
+    margin-top: 0px;
+    margin-left: 50px;
+}
+

@@ -1,0 +1,52 @@
+body {
+    background-color: #6bc3b1;
+}
+
+a {
+    text-decoration: none;
+}
+
+.topBackground, .footerBackground {
+    background-color: white;
+    overflow : auto;
+    margin-top : 5px;
+    text-align : center;
+    padding : 20px;
+}
+
+.bodyBackground {
+    background-color: white;
+    overflow : auto;
+    margin-top : 5px;
+    padding-left : 50px;
+    padding-right: 50px;
+}
+
+.topBackground ul {
+    margin: 0px;
+    float: right;
+}
+.topButton {
+    box-shadow : rgba(0, 0, 0, 0.8) 3px 3px;
+    cursor : pointer;
+
+    list-style: none;
+    background-color: lightsteelblue;
+    color : purple;
+    
+    float : left;
+    text-align : center;
+    width: 100px;
+    height: 25px;
+    margin-left : 10px;
+}
+
+.pTitle {
+    font-size:30px;
+    font-weight: bold;
+    margin-bottom : 0px;
+}
+
+.pText {
+    margin-top : 0px;
+}

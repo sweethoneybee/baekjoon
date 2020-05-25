@@ -5,28 +5,24 @@ using namespace std;
 
 int root[600][1100] = {0};
 int tile[600][1100] = {0};
-int visited[600][1100] = {0};
-int mark[600][1100][2] = {0};
-bool chk[550000] = {0};
-
+int mark[300000] = {0};
+int r[300000] = {0};
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 bool Chk(int, int);
 void Bfs();
+int makeRoot(vector<int> &answer);
 int N;
-int Index = 1;
-int max_tile = -1;
+int Index = 0;
 pair<int, int> max_tile_cor;
-queue<pair<int, int>> que;
-vector<int> answer;
+queue<int> que;
+vector<int> answer, v[300000];
 
 int main(void)
 {
-    fill_n(visited[0], 500*1000, 80000000);
     cin >> N;
     for(int i = 0 ; i < N; i++)
     {
-        int count = 0;
         if(i % 2 == 0)
         {
             for(int j = 0; j < N; j++)
@@ -54,33 +50,56 @@ int main(void)
         }
     }
 
-    Index--;
-
-    visited[0][0] = 1;
-    que.push(make_pair(0, 0));
-    Bfs();
-    
-    int tempX = max_tile_cor.first;
-    int tempY = max_tile_cor.second;
-    
-    while(tile[tempX][tempY] != 1)
+    for(int i = 0; i < N; i++)
     {
-        if(chk[tile[tempX][tempY]] == 0)
+        for(int j = 0; j < N * 2; j++)
         {
-            chk[tile[tempX][tempY]] = 1;
-            answer.push_back(tile[tempX][tempY]);
+            for(int k = 0; k < 4; k++)
+            {
+                int nx = i + dx[k];
+                int ny = j + dy[k];
+                if(Chk(nx, ny) && tile[nx][ny] != tile[i][j] && root[nx][ny] == root[i][j])
+                {
+                    v[tile[i][j]].push_back(tile[nx][ny]);
+                }
+            }
         }
-        int t_tempX = tempX;
-        tempX = mark[tempX][tempY][0];
-        tempY = mark[t_tempX][tempY][1];
     }
 
-    answer.push_back(1);
-    int size = answer.size();
-    cout << size << endl;
-    for(auto i = answer.rbegin(); i != answer.rend(); i++)
+
+    
+    fill_n(mark, 300000, -1);
+
+    mark[0] = 0;
+    r[0] = -1;
+
+    for(que.push(0); !que.empty(); que.pop())
     {
-        cout << *i << " ";
+        int c = que.front();
+        for(int i = 0; i < v[c].size(); ++i)
+        {
+            int o = v[c][i];
+            if(mark[o] == -1)
+            {
+                mark[o] = mark[c] + 1;
+                r[o] = c;
+                que.push(o);
+            }
+        }
+    }
+
+    int f;
+    for(f = N * N - N / 2 - 1; mark[f] == -1; f--);
+
+    for(int x = f; x != -1; x = r[x])
+        answer.push_back(x);
+    
+
+    
+    cout << answer.size() << endl;
+    for(int i = answer.size() - 1; i >= 0; i--)
+    {
+        cout << answer[i]+1 << " ";
     }
     
     system("pause");
@@ -91,44 +110,4 @@ bool Chk(int x, int y)
 {
     if(x >= 0 && x <= N - 1 && y>=0 && y <= N * 2 - 1) return true;
     else return false;
-}
-
-void Bfs()
-{
-    while(que.empty() != true)
-    {
-        int x = que.front().first;
-        int y = que.front().second;
-        que.pop();
-
-        for(int i = 0; i < 4; i++)
-        {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-
-            if(!Chk(nx, ny)) continue;
-
-            if(tile[x][y] != tile[nx][ny] && visited[nx][ny] >= visited[x][y] + 1 && root[x][y] == root[nx][ny])
-            {
-                que.push(make_pair(nx, ny));
-                visited[nx][ny] = visited[x][y] + 1;
-                mark[nx][ny][0] = x;
-                mark[nx][ny][1] = y;
-
-                if(max_tile <= tile[nx][ny])
-                {
-                    max_tile = tile[nx][ny];
-                    max_tile_cor = make_pair(nx, ny);
-                }
-            }
-            if(tile[x][y] == tile[nx][ny] && visited[nx][ny] > visited[x][y])
-            {
-                que.push(make_pair(nx,ny));
-                visited[nx][ny] = visited[x][y];
-                mark[nx][ny][0] = x;
-                mark[nx][ny][1] = y;
-            }
-
-        }
-    }
 }

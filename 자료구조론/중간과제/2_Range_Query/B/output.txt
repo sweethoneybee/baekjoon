@@ -1,0 +1,4 @@
+5(1) 7(2) 9(3) 11(8) 13(2) 14(1) 15(4) 20(1) 
+between 9 and 15 : key value count = 5.
+5(1) 7(2) 11(7) 13(2) 14(1) 15(4) 20(1) 
+between 9 and 15 : key value count = 4.

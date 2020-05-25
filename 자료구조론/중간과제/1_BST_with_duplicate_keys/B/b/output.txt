@@ -1,0 +1,4 @@
+2 is in the tree.
+3 is not in the tree.
+Deletion failed. 4 does not exist.
+1 2 2 
