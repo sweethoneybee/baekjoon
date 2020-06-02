@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "C:\\Users\\정성훈\\Desktop\\source files"
+		},
+		{
+			"path": "백준"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"typeinfo": "cpp",
+			"iostream": "cpp",
+			"vector": "cpp"
+		}
+	}
+}
