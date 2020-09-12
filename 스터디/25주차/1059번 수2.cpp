@@ -30,37 +30,81 @@ int main(void)
 {
   int answer = 0;
   bool hasLuckySet = true;
-  cin >> N;
-  for (int i = 0; i < N; i++)
+  cin >> L;
+  for (int i = 0; i < L; i++)
   {
     int input;
     cin >> input;
     nums.insert(input);
   }
-  cin >> L;
+  cin >> N;
 
   for (auto i = nums.rbegin(); i != nums.rend(); i++)
   {
-    if (L == *i)
+    if (N == *i)
     {
       hasLuckySet = false;
       break;
     }
   }
-
   if (hasLuckySet == false)
   {
     cout << answer;
     return 0;
   }
-  for (auto i = nums.rbegin(); i != nums.rend(); i++)
+
+  a = -1;
+  b = 1001;
+  for (auto i = nums.begin(); i != nums.end(); i++)
   {
-    if (*i >= L)
+    if (*i > N)
     {
       b = *i;
       break;
     }
   }
+  for (auto i = nums.rbegin(); i != nums.rend(); i++)
+  {
+    if (*i < N)
+    {
+      a = *i;
+      break;
+    }
+  }
 
+  // 구간 사이에 있는 경우
+  if (b != 1001 && a != -1)
+  {
+    for (int i = a + 1; i <= N; i++)
+    {
+      answer += (b - N);
+      if (i == N)
+        answer -= 1;
+    }
+  }
+  // N보다 큰 값이 없는 경우
+  else if (b == 1001 && a != -1)
+  {
+    b = 1000;
+    for (int i = a + 1; i <= N; i++)
+    {
+      answer += (b - N + 1);
+      if (i == N)
+        answer -= 1;
+    }
+  }
+  // N보다 작은 값이 없는 경우
+  else if (b != 1001 && a == -1)
+  {
+    a = 0;
+    for (int i = a + 1; i <= N; i++)
+    {
+      answer += (b - N);
+      if (i == N)
+        answer -= 1;
+    }
+  }
+
+  cout << answer;
   return 0;
 }
